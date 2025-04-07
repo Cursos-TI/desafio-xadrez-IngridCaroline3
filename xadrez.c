@@ -27,28 +27,43 @@
 
     #include <stdio.h>
 
-int main() {
-    // Movimento da Torre - utilizando "for"
-    printf("Movimento da Torre (5 casas para a direita):\n");
-    for (int i = 1; i <= 5; i++) {
-        printf("Casa %d: Direita\n", i);
+    int main() {
+        // Movimento da Torre - utilizando "for"
+        printf("Movimento da Torre (5 casas para a direita):\n");
+        for (int i = 1; i <= 5; i++) {
+            printf("Casa %d: Direita\n", i);
+        }
+    
+        // Movimento do Bispo - utilizando "while"
+        printf("\nMovimento do Bispo (5 casas na diagonal para cima e à direita):\n");
+        int casasBispo = 1; // Contador para o while
+        while (casasBispo <= 5) {
+            printf("Casa %d: Cima, Direita\n", casasBispo);
+            casasBispo++;
+        }
+    
+        // Movimento da Rainha - utilizando "do-while"
+        printf("\nMovimento da Rainha (8 casas para a esquerda):\n");
+        int casasRainha = 1; // Contador para o do-while
+        do {
+            printf("Casa %d: Esquerda\n", casasRainha);
+            casasRainha++;
+        } while (casasRainha <= 8);
+    
+        // Movimento  Cavalo - utilizando "for" e "while"
+        printf("\nMovimento do Cavalo (2 casas para baixo e 1 casa para a esquerda):\n");
+    
+        // Loop para movimento na direção vertical 
+        for (int i = 1; i <= 2; i++) {
+            printf("Etapa %d: Baixo\n", i);
+        }
+    
+        // Loop para movimento na direção horizontal 
+        int casaEsquerda = 1; // Contador para o movimento horizontal
+        while (casaEsquerda <= 1) {
+            printf("Etapa %d: Esquerda\n", casaEsquerda + 2); // Ajustando a etapa após as duas casas para baixo
+            casaEsquerda++;
+        }
+    
+        return 0;
     }
-
-    // Movimento do Bispo - utilizando "while"
-    printf("\nMovimento do Bispo (5 casas na diagonal para cima e à direita):\n");
-    int casasBispo = 1; // Contador para o while
-    while (casasBispo <= 5) {
-        printf("Casa %d: Cima, Direita\n", casasBispo);
-        casasBispo++;
-    }
-
-    // Movimento da Rainha - utilizando "do-while"
-    printf("\nMovimento da Rainha (8 casas para a esquerda):\n");
-    int casasRainha = 1; // Contador para o do-while
-    do {
-        printf("Casa %d: Esquerda\n", casasRainha);
-        casasRainha++;
-    } while (casasRainha <= 8);
-
-    return 0;
-}
