@@ -25,58 +25,86 @@
     // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
     // Inclua o uso de continue e break dentro dos loops.
 
-#include <stdio.h>
+    #include <stdio.h>
 
-// Função recursiva para o movimento da Torre
-void movimentoTorre(int casas) {
-    if (casas == 0) return; // Caso base
-    printf("Direita\n");
-    movimentoTorre(casas - 1); // Chamada recursiva
-}
-
-// Função recursiva para o movimento da Rainha
-void movimentoRainha(int casas) {
-    if (casas == 0) return; // Caso base
-    printf("Esquerda\n");
-    movimentoRainha(casas - 1); // Chamada recursiva
-}
-
-// Função para o movimento do Bispo com loops aninhados
-void movimentoBispo(int casas) {
-    for (int i = 1; i <= casas; i++) { // Loop vertical
-        for (int j = 1; j <= 1; j++) { // Loop horizontal
-            printf("Cima, Direita\n");
+    #define TAMANHO 10 // Definição do tamanho do tabuleiro
+    #define TAM_NAVIO 3 // Definição do tamanho dos navios
+    
+    int verificarPosicao(int tabuleiro[TAMANHO][TAMANHO], int linha, int coluna, int tamanho, char direcao) {
+        for (int i = 0; i < tamanho; i++) {
+            if (linha < 0 || linha >= TAMANHO || coluna < 0 || coluna >= TAMANHO || tabuleiro[linha][coluna] == 3) {
+                return 0; // Posição inválida ou ocupada
+            }
+            if (direcao == 'H') coluna++; // Horizontal
+            else if (direcao == 'V') linha++; // Vertical
+            else if (direcao == 'D') { linha++; coluna++; } // Diagonal 
+            else if (direcao == 'A') { linha--; coluna++; } // Diagonal 
+        }
+        return 1; // Posição válida
+    }
+    
+    void posicionarNavio(int tabuleiro[TAMANHO][TAMANHO], int linha, int coluna, int tamanho, char direcao) {
+        for (int i = 0; i < tamanho; i++) {
+            tabuleiro[linha][coluna] = 3; // Marca o navio na matriz
+            if (direcao == 'H') coluna++; 
+            else if (direcao == 'V') linha++; 
+            else if (direcao == 'D') { linha++; coluna++; } 
+            else if (direcao == 'A') { linha--; coluna++; } 
         }
     }
-}
-
-// Função para o movimento do Cavalo com loops aninhados e controle de fluxo
-void movimentoCavalo() {
-    printf("Movimento do Cavalo:\n");
-    for (int i = 1; i <= 2; i++) { // Movimento vertical
-        printf("Cima\n");
+    
+    int main() {
+        int tabuleiro[TAMANHO][TAMANHO] = {0};
+    
+        // Coordenadas para os navios
+        int linha, coluna;
+    
+        // Posicionamento de dois navios horizontais/verticais
+        printf("Insira a linha e coluna inicial para o navio horizontal (0-9): ");
+        scanf("%d %d", &linha, &coluna);
+        if (verificarPosicao(tabuleiro, linha, coluna, TAM_NAVIO, 'H')) {
+            posicionarNavio(tabuleiro, linha, coluna, TAM_NAVIO, 'H');
+        } else {
+            printf("Erro: Posicionamento inválido para o navio horizontal!\n");
+            return 1;
+        }
+    
+        printf("Insira a linha e coluna inicial para o navio vertical (0-9): ");
+        scanf("%d %d", &linha, &coluna);
+        if (verificarPosicao(tabuleiro, linha, coluna, TAM_NAVIO, 'V')) {
+            posicionarNavio(tabuleiro, linha, coluna, TAM_NAVIO, 'V');
+        } else {
+            printf("Erro: Posicionamento inválido para o navio vertical!\n");
+            return 1;
+        }
+    
+        // Posicionamento de dois navios diagonais
+        printf("Insira a linha e coluna inicial para o navio diagonal ↘ (0-9): ");
+        scanf("%d %d", &linha, &coluna);
+        if (verificarPosicao(tabuleiro, linha, coluna, TAM_NAVIO, 'D')) {
+            posicionarNavio(tabuleiro, linha, coluna, TAM_NAVIO, 'D');
+        } else {
+            printf("Erro: Posicionamento inválido para o navio diagonal ↘!\n");
+            return 1;
+        }
+    
+        printf("Insira a linha e coluna inicial para o navio diagonal ↗ (0-9): ");
+        scanf("%d %d", &linha, &coluna);
+        if (verificarPosicao(tabuleiro, linha, coluna, TAM_NAVIO, 'A')) {
+            posicionarNavio(tabuleiro, linha, coluna, TAM_NAVIO, 'A');
+        } else {
+            printf("Erro: Posicionamento inválido para o navio diagonal ↗!\n");
+            return 1;
+        }
+    
+        // Exibição do tabuleiro
+        printf("Tabuleiro do Batalha Naval:\n");
+        for (int i = 0; i < TAMANHO; i++) {
+            for (int j = 0; j < TAMANHO; j++) {
+                printf("%d ", tabuleiro[i][j]);
+            }
+            printf("\n");
+        }
+    
+        return 0;
     }
-    for (int j = 1; j <= 1; j++) { // Movimento horizontal
-        printf("Direita\n");
-    }
-}
-
-int main() {
-    // Movimento da Torre
-    printf("Movimento da Torre:\n");
-    movimentoTorre(5);
-
-    // Movimento do Bispo
-    printf("\nMovimento do Bispo:\n");
-    movimentoBispo(5);
-
-    // Movimento da Rainha
-    printf("\nMovimento da Rainha:\n");
-    movimentoRainha(8);
-
-    // Movimento do Cavalo
-    printf("\nMovimento do Cavalo:\n");
-    movimentoCavalo();
-
-    return 0;
-}
